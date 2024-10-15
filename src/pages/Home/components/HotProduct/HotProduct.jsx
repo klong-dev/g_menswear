@@ -8,9 +8,9 @@ export const HotProduct = () => {
         <div className='hotProduct'>
             <Container>
                 <h2 className='hotProduct-title'>THỜI TRANG HOT NHẤT</h2>
-                <Row justify={'space-between'}>
+                <Row gutter={8} justify={'space-evenly'}>
                     {products.map(product => (
-                        <Col key={product.id} xs={12} sm={8} md={6} lg={4} xl={4}>
+                        <Col key={product.id} xs={24} sm={12} md={8} lg={6} xl={4}>
                             <Product {...product} />
                         </Col>
                     ))}

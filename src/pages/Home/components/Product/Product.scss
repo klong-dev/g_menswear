@@ -1,7 +1,6 @@
 .product {
     display: flex;
     flex-direction: column;
-    align-items: center;
     border-radius: 5px;
     transition: all 0.3s;
     position: relative;
@@ -9,6 +8,11 @@
 
     &:hover {
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+        .product__action {
+            display: flex;
+            opacity: 1;
+        }
     }
 
     .product__image {
@@ -85,5 +89,78 @@
         border-radius: 7px;
         background-color: red;
         color: white;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    &__color {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px 0;
+        font-size: 12px;
+        font-weight: 300;
+
+        &__item {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(77, 76, 76, 0.219);
+            margin: 0 5px;
+            cursor: pointer;
+
+            &:hover {
+                padding: 1px;
+                border: 1px solid red;
+                transition: all 0.15s;
+            }
+        }
+    }
+
+    &__action {
+        opacity: 0;
+        transition: all 0.3s;
+
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 10px;
+
+        &>* {
+            margin: 5px 0;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .add_cart_btn {
+            border: 1px solid #444444 !important;
+            background-color: #444444;
+            color: #fff;
+        }
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(51, 51, 51, 0.23);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .overlay__icon {
+            font-size: 30px;
+            color: white;
+        }
     }
 }

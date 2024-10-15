@@ -1,9 +1,14 @@
 import './Product.scss'
 import PropTypes from 'prop-types'
-
+import { Button, Flex } from 'antd'
 export const Product = (product) => {
     return (
         <div className='product'>
+            <div className='product__overlay'></div>
+            <Flex className='product__action' vertical>
+                <Button className='add_cart_btn'>Thêm vào giỏ hàng</Button>
+                <Button className='detail_btn'>Xem chi tiết</Button>
+            </Flex>
             {product.salePercent > 0 &&
                 <div className='product__salePercent'>
                     <span>-{product.salePercent}%</span>
@@ -18,8 +23,9 @@ export const Product = (product) => {
                 <img src={product.image} alt={product.name} />
             </div>
             <div className='product__color'>
-                <div className='product__color__item'></div>
-                <div className='product__color__item'></div>
+                {product.colors.map(color => (
+                    <div key={color.id} className='product__color__item' style={{ backgroundColor: color.value }} ></div>
+                ))}
             </div>
             <div className='product__info'>
                 <h3 className='product__name'>{product.name}</h3>
@@ -33,7 +39,6 @@ export const Product = (product) => {
                             </span>
                         </>
                     }
-
                 </p>
             </div>
         </div >
