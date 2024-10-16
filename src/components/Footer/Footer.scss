@@ -1,5 +1,35 @@
 .footer {
-    background-color: #1a87f3;
+    background-color: #1E1E1E;
     width: 100vw;
     height: 200px;
+    padding: 20px 0;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-logo h2 {
+    color: #fff;
+    margin: 0;
+}
+
+.footer-col {
+    padding: 20px;
+}
+
+.social-icons a {
+    margin-right: 15px;
+    color: #fff;
+    font-size: 24px;
+}
+
+li {
+    list-style: none;
+    margin-bottom: 5px;
+
+    a {
+        color: #ffffffb2;
+    }
 }
