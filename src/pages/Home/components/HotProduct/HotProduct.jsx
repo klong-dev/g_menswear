@@ -1,6 +1,6 @@
 import './HotProduct.scss'
 import { Row, Col } from 'antd'
-import { Product } from '../Product/Product'
+import { Product } from '../../../../components/Product/Product'
 import { Container } from '../../../../components/Container/Container'
 import { products } from '../../../../data/products'
 export const HotProduct = () => {
