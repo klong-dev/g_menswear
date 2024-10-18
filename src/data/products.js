@@ -6,6 +6,7 @@ export const products = [
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/05/ao-so-mi-tron-tay-dai-form-regular-sm088-16897.jpg',
         salePercent: 10,
         saleValue: 0,
+        categoryId: 1,
         colors: [
             {
                 name: 'Đen',
@@ -24,6 +25,7 @@ export const products = [
         salePercent: 0,
         saleValue: 20000,
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-theu-2-soc-la-co-form-slimfit-sm160-18790.jpg',
+        categoryId: 1,
         colors: [
             {
                 name: 'Xanh',
@@ -42,6 +44,7 @@ export const products = [
         salePercent: 20,
         saleValue: 0,
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2023/01/quan-kaki-co-nap-tui-sau-qk003-17766.jpg',
+        categoryId: 2,
         colors: [
             {
                 name: 'Xám',
@@ -60,6 +63,7 @@ export const products = [
         salePercent: 15,
         saleValue: 0,
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-tay-ngan-2-tui-theu-4m-form-regular-sm164-18794.jpg',
+        categoryId: 3,
         colors: [
             {
                 name: 'Đen',
@@ -78,6 +82,7 @@ export const products = [
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-vai-oxford-tron-signature-form-regular-sm157_small-18787.JPG',
         salePercent: 0,
         saleValue: 0,
+        categoryId: 4,
         colors: [
             {
                 name: 'Đỏ',
