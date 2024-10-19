@@ -3,8 +3,10 @@ import { Row, Col, Flex, Button } from 'antd'
 import { Product } from '../../../../components/Product/Product'
 import { Container } from '../../../../components/Container/Container'
 import { products } from '../../../../data/products'
+import { useNavigate } from 'react-router-dom'
 
 export const ListProduct = () => {
+    const navigate = useNavigate()
     return (
         <div className='listProduct'>
             <Container>
@@ -22,7 +24,7 @@ export const ListProduct = () => {
                     ))}
                 </Row>
                 <Flex justify='center'>
-                    <Button className='listProduct-btn'>Xem tất cả sản phẩm</Button>
+                    <Button className='listProduct-btn' onClick={() => navigate('/category')}>Xem tất cả sản phẩm</Button>
                 </Flex>
             </Container>
         </div>

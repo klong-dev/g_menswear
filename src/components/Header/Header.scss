@@ -10,16 +10,41 @@
     transition: all 0.3s ease;
 }
 
-.scrolled {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-    height: 50px;
+.logo {
+    @media screen and (max-width: 992px) {
+        margin: 0 auto;
+
+        img {
+            height: 40px !important;
+        }
+    }
 }
 
-.logo h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #444444;
+.scrolled {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    height: 60px;
+
+    .logo {
+        @media screen and (max-width: 992px) {
+            margin: 0 auto;
+        }
+
+        img {
+            margin-left: 20px;
+            height: 40px;
+        }
+    }
+
+}
+
+.logo {
+
+    img {
+        height: 50px;
+        width: auto;
+        transition: all 0.3s ease;
+
+    }
 }
 
 a {

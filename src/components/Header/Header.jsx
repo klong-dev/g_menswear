@@ -4,6 +4,9 @@ import { Button, Drawer, Flex } from 'antd'
 import { SearchOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/icons'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
+import logo from '../../assets/images/logo.png'
+
 export const Header = () => {
     const [visible, setVisible] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false)
@@ -42,9 +45,9 @@ export const Header = () => {
     return (
         <div className={`header ${isScrolled && 'scrolled'}`}>
             <Container>
-                <Flex align='center' justify='space-between'>
+                <Flex className='header__content' align='center' justify='space-between'>
                     <div className="logo">
-                        <h1><Link to='/'>4MEN</Link></h1>
+                        <Link to='/'><img src={logo} alt="" /></Link>
                     </div>
 
                     <Flex align='center'>
