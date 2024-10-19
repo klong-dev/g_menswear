@@ -30,8 +30,6 @@ export const Header = () => {
         { label: 'ÁO NAM', key: 'shirts', url: '/category/shirts' },
         { label: 'QUẦN NAM', key: 'pants', url: '/category/pants' },
         { label: 'PHỤ KIỆN', key: 'accessories', url: '/category/accessories' },
-        { label: 'GIÀY DÉP', key: 'shoes', url: '/category/shoes' },
-        { label: 'OUTLET SALE', key: 'outlet', className: 'hot', url: '/category/outlet' },
     ];
 
     const showDrawer = () => {
@@ -63,10 +61,10 @@ export const Header = () => {
                             ))}
                         </div>
 
-                        <div className="header-icons">
+                        <Flex className="header-icons">
                             <Button type="text" icon={<SearchOutlined />} />
                             <Button type="text" icon={<ShoppingCartOutlined />} />
-                        </div>
+                        </Flex>
                     </Flex>
 
                     <Button
@@ -86,14 +84,13 @@ export const Header = () => {
                     visible={visible}
                 >
                     {menuItems.map((item) => (
-                        <a
-                            href={`#${item.key}`}
+                        <Link to={item.url}
                             key={item.key}
-                            className="drawer-menu-item"
+                            className={`drawer-menu-item menu-item ${item.className || ''}`}
                             style={{ display: 'block', marginBottom: '20px', color: '#333' }}
                         >
-                            {item.label}
-                        </a>
+                            {item.label} {item.className === 'hot' && <span className="hot-badge">Hot</span>}
+                        </Link>
                     ))}
                 </Drawer>
             </Container>

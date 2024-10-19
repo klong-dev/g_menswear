@@ -59,17 +59,16 @@ a {
     font-size: 16px;
 }
 
-.hot-badge {
-    background-color: red;
-    color: white;
-    font-size: 10px;
-    padding: 2px 4px;
-    border-radius: 4px;
-    margin-left: 4px;
-}
+.hot {
 
-.header-icons {
-    display: inline-block;
+    &-badge {
+        background-color: red;
+        color: white;
+        font-size: 10px;
+        padding: 2px 4px;
+        border-radius: 4px;
+        margin-left: 4px;
+    }
 }
 
 .mobile-menu-button {
