@@ -1,5 +1,5 @@
 import './ProductDetail.scss'
-import { Carousel, Flex, Button, Select } from 'antd'
+import { Carousel, Flex, Button, Select, Row, Col, Input } from 'antd'
 import PropTypes from 'prop-types'
 
 export const ProductDetail = ({ product }) => {
@@ -27,47 +27,60 @@ export const ProductDetail = ({ product }) => {
                     <img src={product.image} alt='product' />
                 </div>
             </Carousel>
-            <div className='product-detail__info'>
-                <h3 className='product-detail__name'>{product.name}</h3>
-                <span>Giá bán:</span>
-                <p className='product-detail__price'>
-                    {(product.salePercent == 0 && product.saleValue == 0) && <span>{product.price.toLocaleString('vi-VN')} ₫</span>}
-                    {(product.salePercent > 0 || product.saleValue > 0) &&
-                        <>
-                            {(product.price - (product.salePercent > 0 ? (product.price / 100 * product.salePercent) : (product.saleValue))).toLocaleString('vi-VN')} ₫
-                            <span className='product-detail__price__sale'>
-                                {product.price.toLocaleString('vi-VN')} ₫
-                            </span>
-                        </>
-                    }
-                </p>
+            <Row className='product-detail__info' gutter={24} style={{ flex: '1' }}>
+                <Col lg={8} md={24} sm={24} xs={24}>
+                    <h3 className='product-detail__name'>{product.name}</h3>
+                    <span>Giá bán:</span>
+                    <p className='product-detail__price'>
+                        {(product.salePercent == 0 && product.saleValue == 0) && <span>{product.price.toLocaleString('vi-VN')} ₫</span>}
+                        {(product.salePercent > 0 || product.saleValue > 0) &&
+                            <>
+                                {(product.price - (product.salePercent > 0 ? (product.price / 100 * product.salePercent) : (product.saleValue))).toLocaleString('vi-VN')} ₫
+                                <span className='product-detail__price__sale'>
+                                    {product.price.toLocaleString('vi-VN')} ₫
+                                </span>
+                            </>
+                        }
+                    </p>
 
-                <div className='product-detail__color'>
-                    <p>Màu sắc: </p>
-                    {product.colors.map(color => (
-                        <div key={color.id} className='product-detail__color__item' style={{ backgroundColor: color.value }} ></div>
-                    ))}
-                </div>
+                    <div className='product-detail__color'>
+                        <p>Màu sắc: </p>
+                        {product.colors.map(color => (
+                            <div key={color.id} className='product-detail__color__item' style={{ backgroundColor: color.value }} ></div>
+                        ))}
+                    </div>
 
-                <Flex>
-                    <Flex align='center' gap={8} className='product-detail__size'>
-                        <span>Kích thước: </span>
-                        <Select defaultValue={product.sizes[0]} style={{ width: 80, minWidth: 'fit-content' }}>
-                            {product.sizes.map(size => (
-                                <Select.Option key={size} value={size}>{size}</Select.Option>
-                            ))}
-                        </Select>
+                    <Flex vertical>
+                        <Flex align='center' gap={8} className='product-detail__size'>
+                            <span>Kích thước: </span>
+                            <Select defaultValue={product.sizes[0]} style={{ width: 80, minWidth: 'fit-content' }}>
+                                {product.sizes.map(size => (
+                                    <Select.Option key={size} value={size}>{size}</Select.Option>
+                                ))}
+                            </Select>
+                        </Flex>
+
+                        <Flex vertical gap={12}>
+                            <Flex align='center' gap={8}>
+                                <span>Kho: </span>
+                                <span className='product-detail__stock'>{product.stock}</span>
+                            </Flex>
+                            <Flex align='center' gap={8}>
+                                <span>Số lượng: </span>
+                                <Input type='number' min={1} defaultValue={1} style={{ width: 80 }} />
+                            </Flex>
+                        </Flex>
                     </Flex>
-
-                    <Flex>
-
+                    <Flex vertical gap={8} style={{ marginTop: 16 }}>
+                        <Button type='primary' className='add_cart_btn'>Thêm vào giỏ hàng</Button>
+                        <Button color='primary' variant='dashed' className='detail_btn'>Xem chi tiết</Button>
                     </Flex>
-                </Flex>
-                <Flex vertical gap={8}>
-                    <Button type='primary' className='add_cart_btn'>Thêm vào giỏ hàng</Button>
-                    <Button color='primary' variant='dashed' className='detail_btn'>Xem chi tiết</Button>
-                </Flex>
-            </div>
+                </Col>
+                <Col lg={16} md={24} sm={24} xs={24} style={{ paddingLeft: 24 }}>
+                    <h3 className='product-detail__title'>Thông tin sản phẩm</h3>
+                    <p className='product-detail__description'>{product.description}</p>
+                </Col>
+            </Row>
         </Flex>
     )
 }
