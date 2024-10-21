@@ -9,6 +9,7 @@ import { Category } from './pages/Category/Category'
 import { Admin } from './pages/Admin/Admin'
 import { AdminLogin } from './pages/Admin/pages/Login/Login'
 import { ScrollToTop } from './components/ScrollToTop'
+import { ProtectedRoute } from './pages/Admin/components/ProtectedRoute'
 
 function App() {
   const isAdminSubdomain = window.location.hostname.startsWith('admin')
@@ -19,7 +20,10 @@ function App() {
       {isAdminSubdomain ? (
         <>
           <Routes>
-            <Route path="/" element={<Admin />} />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>} />
             <Route path="/login" element={<AdminLogin />} />
           </Routes>
         </>
