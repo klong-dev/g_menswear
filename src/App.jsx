@@ -8,7 +8,6 @@ import { Contact } from './pages/Contact/Contact'
 import { Category } from './pages/Category/Category'
 import { Admin } from './pages/Admin/Admin'
 import { AdminLogin } from './pages/Admin/pages/Login/Login'
-import { AdminHeader } from './pages/Admin/components/Header/Header'
 import { ScrollToTop } from './components/ScrollToTop'
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
       <ScrollToTop />
       {isAdminSubdomain ? (
         <>
-          <AdminHeader />
           <Routes>
             <Route path="/" element={<Admin />} />
             <Route path="/login" element={<AdminLogin />} />
