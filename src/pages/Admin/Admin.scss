@@ -1,3 +1,28 @@
 .admin {
-    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &-upload-form {
+        width: 60%;
+        margin: -5rem auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(0, 0, 0, 0.336);
+        padding: 1rem 2rem 2.3rem 2rem;
+        border-radius: 5px;
+        margin: 1rem auto;
+
+        .custom-row {
+            width: 80%;
+            margin-top: 1rem;
+
+            .upload-image {
+                padding: 0 1rem 0 0;
+            }
+        }
+    }
 }
