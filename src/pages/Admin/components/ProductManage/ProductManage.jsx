@@ -1,4 +1,4 @@
-import { Button, Flex, Table } from 'antd'
+import { Flex, Table } from 'antd'
 import './ProductManage.scss'
 import { Container } from '../../../../components/Container/Container'
 import { products } from '../../../../data/products'
@@ -45,12 +45,14 @@ export const ProductManage = () => {
                         },
                         {
                             title: 'Màu sắc',
-                            dataIndex: 'colors',
-                            key: 'colors',
-                            render: (colors) => (
-                                <Flex wrap gap={8}>
-                                    {colors.map((color) => (
-                                        <div key={color.name} style={{ backgroundColor: color.value, width: 20, height: 20 }} />
+                            dataIndex: 'type_images',
+                            key: 'type_images',
+                            render: (type_images) => (
+                                <Flex wrap gap={8} className='product-manage__type__images'>
+                                    {type_images.map((type, index) => (
+                                        <div key={index} className='product-manage__type__images__item'>
+                                            <img src={type.url} alt={type.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
+                                        </div>
                                     ))}
                                 </Flex>
                             ),

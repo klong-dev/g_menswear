@@ -1,8 +1,6 @@
 import './ProductDetail.scss'
-import { Carousel, Flex, Button, Select, Row, Col, Input, Typography } from 'antd'
+import { Carousel, Flex, Button, Select, Row, Col, Input } from 'antd'
 import PropTypes from 'prop-types'
-
-const { Title } = Typography
 
 export const ProductDetail = ({ product }) => {
     console.log(product.name)

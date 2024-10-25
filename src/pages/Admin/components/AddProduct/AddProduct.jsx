@@ -189,21 +189,28 @@ export const AddProduct = () => {
                             )}
                         </Form.List>
 
-                        <Form.List name="colors">
+                        <Form.List name="type__images">
                             {(fields, { add, remove }) => (
                                 <>
-                                    <Text>Màu sắc</Text>
+                                    <Text>Hình ảnh mô tả các loại: </Text>
                                     {fields.map((field, index) => (
                                         <Space key={index} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                                             <Form.Item
                                                 {...field}
                                                 name={[field.name, 'name']}
                                                 fieldKey={[field.fieldKey, 'name']}
-                                                rules={[{ required: true, message: 'Vui lòng chọn màu' }]}
+                                                rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
                                             >
-                                                <Input placeholder="Tên màu ( VD: Đỏ )" />
+                                                <Input placeholder="Mô tả ( VD: Áo sơ mi AX01 - Đỏ )" />
                                             </Form.Item>
-                                            <ColorPicker defaultValue="#1677ff" size="small" />
+                                            <Form.Item
+                                                {...field}
+                                                name={[field.name, 'color']}
+                                                fieldKey={[field.fieldKey, 'color']}
+                                                rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
+                                            >
+                                                <Input placeholder='URL hình ảnh mô tả' />
+                                            </Form.Item>
                                             <MinusCircleOutlined onClick={() => remove(field.name)} />
                                         </Space>
                                     ))}
