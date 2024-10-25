@@ -10,14 +10,14 @@ export const products = [
         sizes: ['S', 'M', 'L', 'XL'],
         stock: 10,
         description: 'Áo thun nam hàng hiệu chất lượng cao',
-        colors: [
+        type_images: [
             {
-                name: 'Đen',
-                value: '#000'
+                id: '1',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/05/ao-so-mi-tron-tay-dai-form-regular-sm088-16897.jpg'
             },
             {
-                name: 'Trắng',
-                value: '#fff'
+                id: '2',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/05/ao-so-mi-tron-tay-dai-form-regular-sm088-16897.jpg'
             }
         ]
     },
@@ -30,16 +30,16 @@ export const products = [
         sizes: ['S', 'M', 'L'],
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-theu-2-soc-la-co-form-slimfit-sm160-18790.jpg',
         categoryId: 1,
-        colors: [
+        type_images: [
             {
-                name: 'Xanh',
-                value: '#00f'
+                name: 'Áo sơ mi nam 1',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-theu-2-soc-la-co-form-slimfit-sm160-18790.jpg'
             },
             {
-                name: 'Đỏ',
-                value: '#f00'
+                name: 'Áo sơ mi nam 2',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-theu-2-soc-la-co-form-slimfit-sm160-18790.jpg'
             }
-        ]
+        ],
     },
     {
         id: '3',
@@ -50,16 +50,16 @@ export const products = [
         sizes: ['28', '30', '32', '34'],
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2023/01/quan-kaki-co-nap-tui-sau-qk003-17766.jpg',
         categoryId: 2,
-        colors: [
+        type_images: [
             {
-                name: 'Xám',
-                value: '#808080'
+                name: 'Quần jean nam 1',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2023/01/quan-kaki-co-nap-tui-sau-qk003-17766.jpg'
             },
             {
-                name: 'Xanh đậm',
-                value: '#00008b'
+                name: 'Quần jean nam 2',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2023/01/quan-kaki-co-nap-tui-sau-qk003-17766.jpg'
             }
-        ]
+        ],
     },
     {
         id: '4',
@@ -70,16 +70,16 @@ export const products = [
         sizes: ['39', '40', '41', '42'],
         image: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-tay-ngan-2-tui-theu-4m-form-regular-sm164-18794.jpg',
         categoryId: 3,
-        colors: [
+        type_images: [
             {
-                name: 'Đen',
-                value: '#000'
+                name: 'Giày thể thao nam 1',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-tay-ngan-2-tui-theu-4m-form-regular-sm164-18794.jpg'
             },
             {
-                name: 'Trắng',
-                value: '#fff'
+                name: 'Giày thể thao nam 2',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-tay-ngan-2-tui-theu-4m-form-regular-sm164-18794.jpg'
             }
-        ]
+        ],
     },
     {
         id: '5',
@@ -90,14 +90,14 @@ export const products = [
         saleValue: 0,
         categoryId: 4,
         sizes: ['M', 'L'],
-        colors: [
+        type_images: [
             {
-                name: 'Đỏ',
-                value: '#f00'
+                id: '1',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-vai-oxford-tron-signature-form-regular-sm157_small-18787.JPG'
             },
             {
-                name: 'Xanh lá',
-                value: '#0f0'
+                id: '2',
+                url: 'https://4menshop.com/cache/image/300x400/images/thumbs/2024/10/ao-so-mi-vai-oxford-tron-signature-form-regular-sm157_small-18787.JPG'
             }
         ]
     }
