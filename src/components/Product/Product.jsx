@@ -77,11 +77,13 @@ export const Product = (product) => {
             <div className='product__image'>
                 <img src={product.image} alt={product.name} />
             </div>
-            <div className='product__color'>
-                {product.colors.map(color => (
-                    <div key={color.id} className='product__color__item' style={{ backgroundColor: color.value }} ></div>
+            <Flex wrap className='product__type__images' justify='start'>
+                {product.type_images.map((type_image, index) => (
+                    <div key={index} className='product__type__images__item'>
+                        <img src={type_image.url} alt={type_image.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
+                    </div>
                 ))}
-            </div>
+            </Flex>
             <div className='product__info'>
                 <h3 className='product__name'>{product.name}</h3>
                 <p className='product__price'>

@@ -1,6 +1,8 @@
 import './ProductDetail.scss'
-import { Carousel, Flex, Button, Select, Row, Col, Input } from 'antd'
+import { Carousel, Flex, Button, Select, Row, Col, Input, Typography } from 'antd'
 import PropTypes from 'prop-types'
+
+const { Title } = Typography
 
 export const ProductDetail = ({ product }) => {
     console.log(product.name)
@@ -43,12 +45,14 @@ export const ProductDetail = ({ product }) => {
                         }
                     </p>
 
-                    <div className='product-detail__color'>
-                        <p>Màu sắc: </p>
-                        {product.colors.map(color => (
-                            <div key={color.id} className='product-detail__color__item' style={{ backgroundColor: color.value }} ></div>
+                    <Flex wrap justify='start' className='product-detail__type__images'>
+                        <p style={{ flexBasis: '100%' }}>Màu sắc: </p>
+                        {product.type_images.map((type_image, index) => (
+                            <div key={index} className='product__type__images__item'>
+                                <img src={type_image.url} alt={type_image.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
+                            </div>
                         ))}
-                    </div>
+                    </Flex>
 
                     <Flex vertical>
                         <Flex align='center' gap={8} className='product-detail__size'>

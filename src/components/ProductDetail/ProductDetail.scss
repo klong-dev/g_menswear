@@ -22,28 +22,27 @@
         margin-bottom: 15px;
     }
 
-    &__color {
+    &__type__images {
+        margin: 5px 0 10px 0;
+        font-size: 12px;
+        font-weight: 300;
+
         p {
-            margin-right: 5px;
+            margin-bottom: 5px;
         }
 
-        display: flex;
-        align-items: center;
-        margin: 5px 0;
-        font-size: 12px;
-        font-weight: 400;
-
         &__item {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+            height: 60px;
+            width: auto;
+            padding: 2px;
+            border-radius: 2px;
             border: 1px solid rgba(77, 76, 76, 0.219);
             margin: 0 5px;
             cursor: pointer;
 
             &:hover {
                 padding: 1px;
-                border: 1px solid gray;
+                border: 1px solid red;
                 transition: all 0.15s;
             }
         }
