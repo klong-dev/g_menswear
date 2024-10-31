@@ -1,5 +1,6 @@
 export const products = [
     {
+        key: '1',
         id: '1',
         name: 'Áo thun nam',
         price: 200000,
@@ -22,6 +23,7 @@ export const products = [
         ]
     },
     {
+        key: '2',
         id: '2',
         name: 'Áo sơ mi nam',
         price: 300000,
@@ -42,6 +44,7 @@ export const products = [
         ],
     },
     {
+        key: '3',
         id: '3',
         name: 'Quần jean nam',
         price: 400000,
@@ -62,6 +65,7 @@ export const products = [
         ],
     },
     {
+        key: '4',
         id: '4',
         name: 'Giày thể thao nam',
         price: 500000,
@@ -82,6 +86,7 @@ export const products = [
         ],
     },
     {
+        key: '5',
         id: '5',
         name: 'Mũ lưỡi trai nam',
         price: 100000,

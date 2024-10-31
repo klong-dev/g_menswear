@@ -1,0 +1,1 @@
+.slider{background-color:pink}.slider-content .slide-item{width:100vw;height:calc(100vh - 85px)}@media(max-width: 992px){.slider-content .slide-item{height:56.25vw}}.slider-content img{width:100%;height:100%;-o-object-fit:initial;object-fit:initial}

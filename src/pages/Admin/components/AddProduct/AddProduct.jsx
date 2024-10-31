@@ -10,8 +10,7 @@ import {
     Modal,
     Space,
     Typography,
-    message,
-    ColorPicker
+    message
 } from 'antd'
 import { PlusOutlined, MinusCircleOutlined, UploadOutlined } from '@ant-design/icons'
 
@@ -32,7 +31,7 @@ export const AddProduct = () => {
 
     const handleAddCategory = () => {
         if (newCategory.trim()) {
-            const newId = (parseInt(categories[categories.length - 1].id) + 1).toString()
+            const newId = categories.length > 0 ? (parseInt(categories[categories.length - 1].id) + 1).toString() : '1'
             setCategories(prev => [...prev, { id: newId, name: newCategory.trim() }])
             setNewCategory('')
             setIsModalVisible(false)
@@ -52,6 +51,11 @@ export const AddProduct = () => {
         setIsModalOpen(true)
     }
 
+    const onsubmit = () => {
+        console.log(form.getFieldsValue())
+        form.submit()
+    }
+
     // Mock data
     // useEffect(() => {
     //     fetch('https://fakestoreapi.com/products/categories')
@@ -59,15 +63,16 @@ export const AddProduct = () => {
 
     return (
         <>
-            <Button type="primary" onClick={openModal}>Primary Button</Button>
+            <Button type="primary" onClick={openModal}>Thêm sản phẩm</Button>
             <Modal
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
                 cancelButtonProps={{ style: { display: 'none' } }}
                 okButtonProps={{ style: { display: 'none' } }}
                 width={800}
+                style={{ top: 20 }}
             >
-                <div className="max-w-4xl mx-auto p-6">
+                <div style={{ maxHeight: 'calc(90vh - 20px)', overflowY: 'auto', paddingRight: 15 }}>
                     <Title level={2}>THÊM MỚI SẢN PHẨM</Title>
                     <Form
                         form={form}
@@ -76,16 +81,16 @@ export const AddProduct = () => {
                         layout="vertical"
                         initialValues={{
                             saleType: 'none',
-                            sizes: ['M'],
-                            colors: [{ name: 'Xanh dương' }]
+                            sizes: [],
+                            type_images: []
                         }}
                     >
-                        <Form.Item name="name" label="Tên sản phẩm" rules={[{ required: true }]}>
+                        <Form.Item name="name" label="Tên sản phẩm" rules={[{ required: true, message: 'Nhập tên sản phẩm' }]}>
                             <Input />
                         </Form.Item>
 
-                        <Form.Item name="price" label="Giá" rules={[{ required: true }]}>
-                            <InputNumber min={0} style={{ width: '100%' }} />
+                        <Form.Item name="price" label="Giá" rules={[{ required: true, message: 'Nhập giá sản phẩm' }]}>
+                            <InputNumber type='number' min={0} style={{ width: '100%' }} />
                         </Form.Item>
 
                         <Form.Item
@@ -94,7 +99,11 @@ export const AddProduct = () => {
                             valuePropName="fileList"
                             getValueFromEvent={normFile}
                         >
-                            <Upload name="image" listType="picture" maxCount={1}>
+                            <Upload name="image"
+                                listType="picture"
+                                maxCount={1}
+                                accept=".jpg,.jpeg,.png,.gif"
+                            >
                                 <Button icon={<UploadOutlined />}>Upload Image</Button>
                             </Upload>
                         </Form.Item>
@@ -129,7 +138,7 @@ export const AddProduct = () => {
                             }
                         </Form.Item>
 
-                        <Form.Item name="categoryId" label="Danh mục" rules={[{ required: true }]}>
+                        <Form.Item name="categoryId" label="Danh mục" rules={[{ required: true, message: 'Chọn 1 hoặc tạo danh mục mới' }]}>
                             <Select
                                 style={{ width: '100%' }}
                                 dropdownRender={menu => (
@@ -151,72 +160,88 @@ export const AddProduct = () => {
                             </Select>
                         </Form.Item>
 
-                        <Form.Item name="stock" label="Kho" rules={[{ required: true }]}>
-                            <InputNumber value={1} min={1} style={{ width: '100%' }} />
+                        <Form.Item name="stock" label="Kho" rules={[{ required: true, message: "Vui lòng đặt số lượng kho" }]}>
+                            <InputNumber type='number' initialvalues={1} min={1} style={{ width: '100%' }} />
                         </Form.Item>
 
                         <Form.List name="sizes">
                             {(fields, { add, remove }) => (
                                 <>
+                                    <Text>Thêm kích thước sản phẩm: </Text>
                                     {fields.map((field, index) => (
                                         <Form.Item
                                             required={false}
                                             key={index}
-                                            label={index === 0 ? 'Kích thước' : ''}
                                         >
-                                            <Form.Item
-                                                {...field}
-                                                validateTrigger={['onChange', 'onBlur']}
-                                                rules={[{ required: true, whitespace: true, message: "Vui lòng không bỏ trống." }]}
-                                                noStyle
-                                            >
-                                                <Input style={{ width: '60%' }} placeholder="Size" />
-                                            </Form.Item>
-                                            {fields.length > 1 && (
-                                                <MinusCircleOutlined
-                                                    className="dynamic-delete-button"
-                                                    onClick={() => remove(field.name)}
-                                                />
-                                            )}
+                                            {(() => { // tạo 1 function để trả về 1 component
+                                                const { key, ...rest } = field;
+                                                return (
+                                                    <Form.Item
+                                                        {...rest}
+                                                        rules={[{ required: true, whitespace: true, message: "Vui lòng không bỏ trống." }]}
+                                                        noStyle
+                                                    >
+                                                        <Input style={{ width: '60%' }} placeholder="Kích thước ( VD: XL )" />
+                                                    </Form.Item>
+                                                );
+                                            })()}
+                                            {
+                                                fields.length > 1 && (
+                                                    <MinusCircleOutlined style={{ marginLeft: 10 }}
+                                                        className="dynamic-delete-button"
+                                                        onClick={() => remove(field.name)}
+                                                    />
+                                                )
+                                            }
                                         </Form.Item>
                                     ))}
                                     <Form.Item>
                                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                                            Add Size
+                                            Thêm
                                         </Button>
                                     </Form.Item>
                                 </>
                             )}
                         </Form.List>
 
-                        <Form.List name="type__images">
+                        <Form.List name="type_images">
                             {(fields, { add, remove }) => (
                                 <>
                                     <Text>Hình ảnh mô tả các loại: </Text>
                                     {fields.map((field, index) => (
                                         <Space key={index} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                                            {(() => {
+                                                const { key, ...rest } = field;
+                                                return (
+                                                    <Form.Item
+                                                        {...rest}
+                                                        name={[field.name, 'name']}
+                                                        rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
+                                                    >
+                                                        <Input placeholder="Mô tả ( VD: Áo sơ mi AX01 - Đỏ )" style={{ width: 252, maxWidth: '100%' }} />
+                                                    </Form.Item>
+                                                )
+                                            })()}
                                             <Form.Item
                                                 {...field}
-                                                name={[field.name, 'name']}
-                                                fieldKey={[field.fieldKey, 'name']}
+                                                name={[field.name, 'type_image']}
+                                                fieldKey={[field.fieldKey, 'type_image']}
                                                 rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
                                             >
-                                                <Input placeholder="Mô tả ( VD: Áo sơ mi AX01 - Đỏ )" />
+                                                <Upload
+                                                    name="image"
+                                                    listType="picture"
+                                                    maxCount={1}
+                                                    accept=".jpg,.jpeg,.png,.gif">
+                                                    <Button icon={<UploadOutlined />}>Upload Image</Button>
+                                                </Upload>
                                             </Form.Item>
-                                            <Form.Item
-                                                {...field}
-                                                name={[field.name, 'color']}
-                                                fieldKey={[field.fieldKey, 'color']}
-                                                rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
-                                            >
-                                                <Input placeholder='URL hình ảnh mô tả' />
-                                            </Form.Item>
-                                            <MinusCircleOutlined onClick={() => remove(field.name)} />
+                                            <MinusCircleOutlined style={{ marginLeft: 5 }} onClick={() => remove(field.name)} />
                                         </Space>
                                     ))}
                                     <Form.Item>
                                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                                            Thêm màu
+                                            Thêm hình ảnh
                                         </Button>
                                     </Form.Item>
                                 </>
@@ -228,15 +253,15 @@ export const AddProduct = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Add Product
+                            <Button type="primary" htmlType='submit' onClick={() => onsubmit}>
+                                Thêm sản phẩm
                             </Button>
                         </Form.Item>
                     </Form>
 
                     <Modal
                         title="Thêm danh mục mới"
-                        visible={isModalVisible}
+                        open={isModalVisible}
                         onOk={handleAddCategory}
                         onCancel={() => setIsModalVisible(false)}
                     >
@@ -247,7 +272,7 @@ export const AddProduct = () => {
                         />
                     </Modal>
                 </div>
-            </Modal>
+            </Modal >
         </>
 
     )

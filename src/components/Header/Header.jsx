@@ -81,7 +81,7 @@ export const Header = () => {
                     title="Menu"
                     placement="right"
                     onClose={onClose}
-                    visible={visible}
+                    open={visible}
                 >
                     {menuItems.map((item) => (
                         <Link to={item.url}
