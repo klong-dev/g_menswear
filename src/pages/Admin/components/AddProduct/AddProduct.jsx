@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Form,
     Input,
@@ -24,18 +24,98 @@ export const AddProduct = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [newCategory, setNewCategory] = useState('')
 
-    const onFinish = (values) => {
-        console.log('Success:', values)
-        message.success('Product added successfully')
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`)
+            const data = await response.json()
+            if (response.ok) {
+                setCategories(data)
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error)
+        }
     }
 
-    const handleAddCategory = () => {
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+
+    const convertToBase64 = async (file) => {
+        try {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader()
+                reader.readAsDataURL(file)
+                reader.onload = () => resolve(reader.result)
+                reader.onerror = error => reject(error)
+            })
+        } catch (error) {
+            console.error('Error converting image to base64:', error)
+        }
+    }
+
+    const onFinish = async (values) => {
+        try {
+
+            const formDataObject = async () => {
+                return {
+                    name: values.name,
+                    price: values.price,
+                    salePercent: values.salePercent || 0,
+                    saleValue: values.saleValue || 0,
+                    categoryId: values.categoryId,
+                    stock: values.stock,
+                    sizes: values.sizes,
+                    description: !values.description ? "" : values.description,
+                    image: values.image?.[0]?.originFileObj ? await convertToBase64(values.image[0].originFileObj) : null,
+                    type_images: await Promise.all(values.type_images.map(async (item) => ({
+                        name: item.name,
+                        image: item.type_image ? await convertToBase64(item.type_image.file.originFileObj) : null
+                    })))
+                }
+            }
+
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(await formDataObject()),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                message.success('Product added successfully');
+                form.resetFields();
+                setIsModalOpen(false);
+            } else {
+                message.error(data.message || 'Failed to add product');
+            }
+        } catch (error) {
+            message.error('Network error');
+            console.error('Error creating product:', error);
+        }
+    };
+
+    const handleAddCategory = async () => {
         if (newCategory.trim()) {
-            const newId = categories.length > 0 ? (parseInt(categories[categories.length - 1].id) + 1).toString() : '1'
-            setCategories(prev => [...prev, { id: newId, name: newCategory.trim() }])
-            setNewCategory('')
-            setIsModalVisible(false)
-            form.setFieldsValue({ categoryId: newId })
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: newCategory.trim() }),
+            });
+            if (response.ok) {
+                const data = await response.json()
+                setCategories(prev => [...prev, { id: data.id, name: data.name }])
+                setNewCategory('')
+                setIsModalVisible(false)
+                form.setFieldsValue({ categoryId: data.id })
+                message.success('Category added successfully')
+            } else {
+                message.error('Failed to add category')
+            }
         }
     }
 
@@ -51,11 +131,6 @@ export const AddProduct = () => {
         setIsModalOpen(true)
     }
 
-    const onsubmit = () => {
-        console.log(form.getFieldsValue())
-        form.submit()
-    }
-
     // Mock data
     // useEffect(() => {
     //     fetch('https://fakestoreapi.com/products/categories')
@@ -63,7 +138,7 @@ export const AddProduct = () => {
 
     return (
         <>
-            <Button type="primary" onClick={openModal}>Thêm sản phẩm</Button>
+            <Button type="primary" onClick={openModal} style={{ maxWidth: 200, marginBottom: 20 }}>Thêm sản phẩm</Button>
             <Modal
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
@@ -222,21 +297,26 @@ export const AddProduct = () => {
                                                     </Form.Item>
                                                 )
                                             })()}
-                                            <Form.Item
-                                                {...field}
-                                                name={[field.name, 'type_image']}
-                                                fieldKey={[field.fieldKey, 'type_image']}
-                                                rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
-                                            >
-                                                <Upload
-                                                    name="image"
-                                                    listType="picture"
-                                                    maxCount={1}
-                                                    accept=".jpg,.jpeg,.png,.gif">
-                                                    <Button icon={<UploadOutlined />}>Upload Image</Button>
-                                                </Upload>
-                                            </Form.Item>
+                                            {(() => {
+                                                const { key, value, ...rest } = field;
+                                                return (
+                                                    <Form.Item
+                                                        {...rest}
+                                                        name={[field.name, 'type_image']}
+                                                        rules={[{ required: true, message: 'Vui lòng điền đủ thông tin' }]}
+                                                    >
+                                                        <Upload
+                                                            name="image"
+                                                            listType="picture"
+                                                            maxCount={1}
+                                                            accept=".jpg,.jpeg,.png,.gif">
+                                                            <Button icon={<UploadOutlined />}>Upload Image</Button>
+                                                        </Upload>
+                                                    </Form.Item>
+                                                )
+                                            })()}
                                             <MinusCircleOutlined style={{ marginLeft: 5 }} onClick={() => remove(field.name)} />
+
                                         </Space>
                                     ))}
                                     <Form.Item>
@@ -253,7 +333,7 @@ export const AddProduct = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType='submit' onClick={() => onsubmit}>
+                            <Button type="primary" htmlType="submit">
                                 Thêm sản phẩm
                             </Button>
                         </Form.Item>

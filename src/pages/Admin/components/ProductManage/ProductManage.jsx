@@ -1,9 +1,28 @@
 import { Flex, Table } from 'antd'
 import './ProductManage.scss'
-import { products } from '../../../../data/products'
 import { AddProduct } from '../AddProduct/AddProduct'
+import { useEffect, useState } from 'react'
 
 export const ProductManage = () => {
+    const [products, setProducts] = useState([])
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/products`)
+            const data = await response.json()
+            if (response.ok) {
+                console.log('Products:', data)
+                setProducts(data)
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchProducts()
+    }, [])
+
     return (
         <Flex className='product-manage' vertical>
             <AddProduct />
@@ -45,13 +64,13 @@ export const ProductManage = () => {
                     },
                     {
                         title: 'Màu sắc',
-                        dataIndex: 'type_images',
-                        key: 'type_images',
-                        render: (type_images) => (
+                        dataIndex: 'productTypes',
+                        key: 'productTypes',
+                        render: (productTypes) => (
                             <Flex wrap gap={8} className='product-manage__type__images'>
-                                {type_images.map((type, index) => (
+                                {productTypes.map((type, index) => (
                                     <div key={index} className='product-manage__type__images__item'>
-                                        <img src={type.url} alt={type.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
+                                        <img src={type.image} alt={type.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
                                     </div>
                                 ))}
                             </Flex>
