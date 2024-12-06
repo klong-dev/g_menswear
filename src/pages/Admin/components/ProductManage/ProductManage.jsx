@@ -25,7 +25,7 @@ export const ProductManage = () => {
 
     return (
         <Flex className='product-manage' vertical>
-            <AddProduct />
+            <AddProduct onProductAdded={fetchProducts} />
             <Table
                 dataSource={products}
                 scroll={{ x: 'max-content' }}

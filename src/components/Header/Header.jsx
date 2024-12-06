@@ -5,7 +5,7 @@ import { SearchOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.jpg'
 
 export const Header = () => {
     const [visible, setVisible] = useState(false);
@@ -25,11 +25,10 @@ export const Header = () => {
 
     // Array for menu items
     const menuItems = [
-        { label: 'HÀNG MỚI VỀ', key: 'new', className: 'hot', url: '/category/new' },
         { label: 'DANH MỤC SẢN PHẨM', key: 'categories', url: '/category' },
-        { label: 'ÁO NAM', key: 'shirts', url: '/category/shirts' },
-        { label: 'QUẦN NAM', key: 'pants', url: '/category/pants' },
-        { label: 'PHỤ KIỆN', key: 'accessories', url: '/category/accessories' },
+        { label: 'ÁO POLO', key: 'shirts', url: '/category' },
+        { label: 'BÁN CHẠY', key: 'new', className: 'hot', url: '/category' },
+        { label: 'SET ĐỒ NAM', key: 'accessories', url: '/category' },
     ];
 
     const showDrawer = () => {
@@ -88,6 +87,7 @@ export const Header = () => {
                             key={item.key}
                             className={`drawer-menu-item menu-item ${item.className || ''}`}
                             style={{ display: 'block', marginBottom: '20px', color: '#333' }}
+                            onClick={onClose}
                         >
                             {item.label} {item.className === 'hot' && <span className="hot-badge">Hot</span>}
                         </Link>

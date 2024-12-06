@@ -45,9 +45,9 @@ export const ProductDetail = ({ product }) => {
 
                     <Flex wrap justify='start' className='product-detail__type__images'>
                         <p style={{ flexBasis: '100%' }}>Màu sắc: </p>
-                        {product.type_images.map((type_image, index) => (
+                        {product.productTypes.map((type, index) => (
                             <div key={index} className='product__type__images__item'>
-                                <img src={type_image.url} alt={type_image.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
+                                <img src={type.image} alt={type.name} style={{ borderRadius: 2, width: '100%', height: '100%' }} />
                             </div>
                         ))}
                     </Flex>
@@ -55,9 +55,9 @@ export const ProductDetail = ({ product }) => {
                     <Flex vertical>
                         <Flex align='center' gap={8} className='product-detail__size'>
                             <span>Kích thước: </span>
-                            <Select defaultValue={product.sizes[0]} style={{ width: 80, minWidth: 'fit-content' }}>
-                                {product.sizes.map(size => (
-                                    <Select.Option key={size} value={size}>{size}</Select.Option>
+                            <Select defaultValue={product.productSizes[0]} style={{ width: 80, minWidth: 'fit-content' }}>
+                                {product.productSizes.map(size => (
+                                    <Select.Option key={size.size} value={size.size}>{size.size}</Select.Option>
                                 ))}
                             </Select>
                         </Flex>

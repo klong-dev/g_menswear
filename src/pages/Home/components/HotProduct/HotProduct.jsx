@@ -2,8 +2,17 @@ import './HotProduct.scss'
 import { Row, Col } from 'antd'
 import { Product } from '../../../../components/Product/Product'
 import { Container } from '../../../../components/Container/Container'
-import { products } from '../../../../data/products'
+import { useEffect, useState } from 'react'
+import { fetchProducts } from '../../../../api/category'
 export const HotProduct = () => {
+    const [products, setProducts] = useState([])
+    useEffect(() => {
+        const fetchProductsData = async () => {
+            const response = await fetchProducts()
+            setProducts(response);
+        }
+        fetchProductsData()
+    }, [])
     return (
         <div className='hotProduct'>
             <Container>

@@ -5,10 +5,10 @@ import { Row, Col, Input } from 'antd'
 import { Link } from 'react-router-dom'
 
 const infoLinks = [
-    { title: 'Giới thiệu', url: '#' },
-    { title: 'Liên hệ', url: '#' },
-    { title: 'Tuyển dụng', url: '#' },
-    { title: 'Tin tức', url: '#' },
+    { title: 'Liên hệ hỗ trợ', url: '#' },
+    { title: 'SĐT: 0982353617', url: '#' },
+    { title: 'Email: g.menswear.www.vn.com', url: '#' },
+    { title: 'Fanpage: G. Menswear', url: '#' },
 ];
 
 const supportLinks = [
@@ -29,22 +29,13 @@ export const Footer = () => {
                 <Row gutter={16} justify="center">
                     <Col xs={24} sm={12} md={6}>
                         <div className="footer-logo">
-                            <h2 style={{ color: '#fff' }}>4MEN</h2>
+                            <h2 style={{ color: '#fff' }}>G. MENSWEAR</h2>
                         </div>
                         <ul>
                             {infoLinks.map((item, index) => (
                                 <li key={index}><a href={item.url}>{item.title}</a></li>
                             ))}
                         </ul>
-                        <p>
-                            Email: info@4menshop.com<br />
-                            Hotline: 0868.444.644
-                        </p>
-                        <Input.Search
-                            placeholder="Email của bạn"
-                            enterButton="Đăng ký"
-                            style={{ width: '100%', marginTop: '10px' }}
-                        />
                     </Col>
 
                     <Col xs={24} sm={12} md={6}>
@@ -63,7 +54,7 @@ export const Footer = () => {
                     </Col>
 
                     <Col xs={24} sm={12} md={6}>
-                        <h3>Kết nối với 4MEN</h3>
+                        <h3>Kết nối với G. Menswear</h3>
                         <div className="social-icons">
                             <FacebookOutlined style={{ fontSize: '24px', marginRight: '10px', color: '#fff' }} />
                             <InstagramOutlined style={{ fontSize: '24px', marginRight: '10px', color: '#fff' }} />

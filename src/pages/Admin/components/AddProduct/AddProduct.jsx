@@ -17,7 +17,7 @@ import { PlusOutlined, MinusCircleOutlined, UploadOutlined } from '@ant-design/i
 const { Title, Text } = Typography
 const { TextArea } = Input
 
-export const AddProduct = () => {
+export const AddProduct = (onProductAdded) => {
     const [form] = Form.useForm()
     const [categories, setCategories] = useState([])
 
@@ -65,7 +65,7 @@ export const AddProduct = () => {
                     categoryId: values.categoryId,
                     stock: values.stock,
                     sizes: values.sizes,
-                    description: !values.description ? "" : values.description,
+                    description: values.description || "",
                     image: values.image?.[0]?.originFileObj ? await convertToBase64(values.image[0].originFileObj) : null,
                     type_images: await Promise.all(values.type_images.map(async (item) => ({
                         name: item.name,
@@ -88,12 +88,13 @@ export const AddProduct = () => {
                 message.success('Product added successfully');
                 form.resetFields();
                 setIsModalOpen(false);
+                onProductAdded();
             } else {
                 message.error(data.message || 'Failed to add product');
             }
         } catch (error) {
             message.error('Network error');
-            console.error('Error creating product:', error);
+            console.error('Error creating product:', error.message);
         }
     };
 
