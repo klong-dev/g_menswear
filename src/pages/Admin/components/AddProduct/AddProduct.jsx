@@ -40,18 +40,59 @@ export const AddProduct = (onProductAdded) => {
         fetchCategories()
     }, [])
 
+    const processImage = (file) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Calculate new dimensions
+                const scaleFactor = img.width > 640 ? 640 / img.width : 1;
+                const newWidth = img.width > 640 ? 640 : img.width;
+                const newHeight = img.height * scaleFactor;
+
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+
+                // For PNG, preserve transparency
+                if (file.type === 'image/png') {
+                    ctx.clearRect(0, 0, newWidth, newHeight);
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    }, 'image/png'); // Keep PNG format
+                } else {
+                    // For JPEG/other formats
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, newWidth, newHeight);
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    }, 'image/jpeg', 0.85);
+                }
+
+                URL.revokeObjectURL(img.src);
+            };
+        });
+    };
+
+    // Update convertToBase64
     const convertToBase64 = async (file) => {
         try {
+            const processedBlob = await processImage(file);
             return new Promise((resolve, reject) => {
-                const reader = new FileReader()
-                reader.readAsDataURL(file)
-                reader.onload = () => resolve(reader.result)
-                reader.onerror = error => reject(error)
-            })
+                const reader = new FileReader();
+                reader.readAsDataURL(processedBlob);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
         } catch (error) {
-            console.error('Error converting image to base64:', error)
+            console.error('Error converting image:', error);
         }
-    }
+    };
 
     const onFinish = async (values) => {
         try {
